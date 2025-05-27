@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Full HTML + CSS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding-top: 60px; /* Space for fixed navbar */
+    }
+
+    nav {
+      background-color: #343a40;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    nav .logo {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    nav .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    section {
+      margin: 40px 0;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .hero img {
+      width: 100%;
+      border-radius: 10px;
+    }
+      .hero button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .biodata {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .biodata div {
+      background-color: #e9ecef;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .portfolio div {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .portfolio img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .hero, .biodata, .portfolio {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav .menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar dengan satu baris dan fixed -->
+  <nav>
+    <div class="logo">Home</div>
+    <div class="menu">
+      <a href="#section2">Header</a>
+      <a href="#section3">Biodata</a>
+      <a href="#section4">Portofolio</a>
+    </div>
+  </nav>
+
+  <!-- Konten utama -->
+  <div class="content">
+    <!-- Section 2: Judul kiri, gambar kanan -->
+    <section id="section2">
+      <div class="hero">
+        <div>
+          <h1>Selamat Datang di Website Saya</h1>
+          <p>Ini adalah contoh header dengan dua kolom. Kolom kiri berisi teks seperti ini.</p>
+          <button>Pelajari Lebih Lanjut</button>
+        </div>
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdfj1lYIHuHfM7tQ6GF1ndwRqp6TMhIJJhQ&s" alt="Foto Profil">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Biodata -->
+  <section id="section3">
+    <h2 style="text-align: center; margin-bottom: 20px;color: Blue;font-weight: bold;">About Me</h2>
+    <p style="text-align: center; margin-bottom: 20px;">A brief introduction about myself</p>
+    <div class="biodata">
+    <div>
+  <span style="color: Blue;font-weight: bold;">Full Name</span>
+  <span style="color: black;">: IPO</span>
+</div>
+  <div>
+  <span style="color: Blue;font-weight: bold;">Education</span>
+  <span style="color: black;">: Bachelor</span>
+</div>
+<div>
+  <span style="color: Blue;font-weight: bold;">Pekerjaan</span>
+  <span style="color: black;">: FullStack</span>
+</div>
+<div>
+  <span style="color: Blue;font-weight: bold;">Contact</span>
+  <span style="color: black;">: www.coding.com</span>
+</div>
+<div>
+  <span style="color: Blue;font-weight: bold;">Hobi</span>
+  <span style="color: black;">: Soccer</span>
+</div>
+<div>
+  <span style="color: Blue;font-weight: bold;">Alamat</span>
+  <span style="color: black;">: Tangerang</span>
+</div>
+         </div>
+  </section>
+
+    <!-- Section 4: Portofolio -->
+    <section id="section4">
+      <h2 style="text-align: center; margin-bottom: 20px;color: Blue;font-weight: bold;">Portofolio</h2>
+      <div class="portfolio">
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfIk5dDSUkQ3hbG6MHH0m-wDAPE7d_q88B4A&s" alt="Proyek 1">
+          <h3>Proyek 1</h3>
+          <p>Deskripsi Proyek 1</p>
+        </div>
+        <div>
+          <img src="https://www.hostinger.co.id/tutorial/wp-content/uploads/sites/11/2020/11/template-mars.jpg" alt="Proyek 2">
+          <h3>Proyek 2</h3>
+          <p>Deskripsi Proyek 2</p>
+        </div>
+        <div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfIk5dDSUkQ3hbG6MHH0m-wDAPE7d_q88B4A&s" alt="Proyek 3">
+          <h3>Proyek 3</h3>
+          <p>Deskripsi Proyek 3</p>
+        </div>
+              </div>
+    </section>
+  </div>
+</body>
+</html>
