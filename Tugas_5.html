@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Produk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .filter {
+      margin-bottom: 20px;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .product-card span {
+      display: block;
+      margin-top: 5px;
+      font-weight: bold;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Daftar Produk</h1>
+
+  <!-- Filter Kategori -->
+  <div class="filter">
+    <label for="categoryFilter">Filter Kategori:</label>
+    <select id="categoryFilter">
+      <option value="all">Semua</option>
+      <option value="elektronik">Elektronik</option>
+      <option value="fashion">Fashion</option>
+      <option value="makanan">Makanan</option>
+    </select>
+  </div>
+
+  <!-- Daftar Produk -->
+  <div class="product-list" id="productList"></div>
+
+  <script>
+    // a. Data Produk
+    const products = [
+      {
+        nama: "Smartphone X1",
+        harga: 3000000,
+        deskripsi: "Smartphone canggih dengan kamera 48MP",
+        gambar: "https://images.unsplash.com/photo-1634196650884-ac296483ca4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aGFuZHBob25lfGVufDB8fDB8fHww",
+        kategori: "elektronik"
+      },
+      {
+        nama: "Jaket Kulit",
+        harga: 450000,
+        deskripsi: "Jaket kulit stylish untuk musim dingin",
+        gambar: "https://images.unsplash.com/photo-1695335753902-7ef11740fbb8?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        kategori: "fashion"
+      },
+      {
+        nama: "Keripik Singkong",
+        harga: 25000,
+        deskripsi: "Keripik singkong renyah dan gurih",
+        gambar: "https://plus.unsplash.com/premium_photo-1672753747124-2bd4da9931fa?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        kategori: "makanan"
+      },
+      {
+        nama: "Laptop Pro 14\"",
+        harga: 8500000,
+        deskripsi: "Laptop profesional untuk kerja dan gaming",
+        gambar: "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        kategori: "elektronik"
+      },
+      {
+        nama: "Sneakers Trendy",
+        harga: 300000,
+        deskripsi: "Sepatu sneakers nyaman untuk aktivitas harian",
+        gambar: "https://plus.unsplash.com/premium_photo-1682125177822-63c27a3830ea?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        kategori: "fashion"
+      }
+    ];
+
+    const productList = document.getElementById("productList");
+    const categoryFilter = document.getElementById("categoryFilter");
+
+    // b. Fungsi Menampilkan Produk
+    function tampilkanProduk(data) {
+      productList.innerHTML = "";
+      data.forEach(product => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <img src="${product.gambar}" alt="${product.nama}">
+          <h3>${product.nama}</h3>
+          <p>${product.deskripsi}</p>
+          <span>Rp ${product.harga.toLocaleString('id-ID')}</span>
+        `;
+        productList.appendChild(card);
+      });
+    }
+
+    // c. Filter Berdasarkan Kategori
+    categoryFilter.addEventListener("change", () => {
+      const kategoriDipilih = categoryFilter.value;
+      if (kategoriDipilih === "all") {
+        tampilkanProduk(products);
+      } else {
+        const produkTersaring = products.filter(p => p.kategori === kategoriDipilih);
+        tampilkanProduk(produkTersaring);
+      }
+    });
+
+    // Tampilkan semua produk saat pertama kali
+    tampilkanProduk(products);
+  </script>
+</body>
+</html>
