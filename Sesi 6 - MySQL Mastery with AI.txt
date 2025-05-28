@@ -1,0 +1,195 @@
+Microsoft Windows [Version 10.0.26100.4061]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Herlina Syafitri AZ>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 24
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> CREATE DATABASE tokoku;
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [(none)]> USE tokoku;
+Database changed
+MariaDB [tokoku]> CREATE TABLE produk (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   nama_produk VARCHAR(100),
+    ->   deskripsi TEXT,
+    ->   harga INT,
+    ->   stok INT
+    -> );
+Query OK, 0 rows affected (0.006 sec)
+
+MariaDB [tokoku]> SHOW TABELS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'TABELS' at line 1
+MariaDB [tokoku]> SHOW TABLES;
++------------------+
+| Tables_in_tokoku |
++------------------+
+| produk           |
++------------------+
+1 row in set (0.001 sec)
+
+MariaDB [tokoku]> CREATE TABLE user (
+    ->   id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   nama VARCHAR(100),
+    ->   email VARCHAR(100),
+    ->   password VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.004 sec)
+
+MariaDB [tokoku]> SHOW TABLES;
++------------------+
+| Tables_in_tokoku |
++------------------+
+| produk           |
+| user             |
++------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [tokoku]> CREATE TABLE `order` (
+    ->   order_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   user_id INT,
+    ->   product_id INT,
+    ->   quantity INT,
+    ->   total INT
+    -> );
+Query OK, 0 rows affected (0.007 sec)
+
+MariaDB [tokoku]> SHOW TABLES;
++------------------+
+| Tables_in_tokoku |
++------------------+
+| order            |
+| produk           |
+| user             |
++------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> CREATE TABLE `order` (
+    ->   order_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->   user_id INT,
+    ->   product_id INT,
+    ->   quantity INT,
+    ->   total INT,
+    ->   CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES user(id),
+    ->   CONSTRAINT fk_order_produk FOREIGN KEY (product_id) REFERENCES produk(id)
+    -> ) ENGINE=InnoDB;
+ERROR 1050 (42S01): Table 'order' already exists
+MariaDB [tokoku]> SHOW TABLES;
++------------------+
+| Tables_in_tokoku |
++------------------+
+| order            |
+| produk           |
+| user             |
++------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> ALTER TABLE `order`
+    -> ADD CONSTRAINT fk_order_user
+    -> FOREIGN KEY (user_id) REFERENCES user(id),
+    -> ADD CONSTRAINT fk_order_produk
+    -> FOREIGN KEY (product_id) REFERENCES produk(id);
+Query OK, 0 rows affected (0.040 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [tokoku]> SHOW TABLES;
++------------------+
+| Tables_in_tokoku |
++------------------+
+| order            |
+| produk           |
+| user             |
++------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> INSERT INTO produk (1, 'Laptop A', 'Personal komputer portable', 5000000, 10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1, 'Laptop A', 'Personal komputer portable', 5000000, 10)' at line 1
+MariaDB [tokoku]> INSERT INTO produk ('Laptop A', 'Personal komputer portable', 5000000, 10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Laptop A', 'Personal komputer portable', 5000000, 10)' at line 1
+MariaDB [tokoku]> INSERT INTO produk VALUES (1, 'Laptop A', 'Personal komputer portable', 5000000, 10);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [tokoku]> INSERT INTO produk VALUES (2, 'Laptop B', 'Personal komputer portable', 4000000, 10);
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [tokoku]> INSERT INTO produk (nama_produk, deskripsi, harga, stok) VALUES ('Buku Mysql', 'Buku Belajar MYSQL', 100000, 20)
+    -> INSERT INTO produk (nama_produk, deskripsi, harga, stok) VALUES ('Buku Mysql', 'Buku Belajar MYSQL', 100000, 20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'INSERT INTO produk (nama_produk, deskripsi, harga, stok) VALUES ('Buku Mysql'...' at line 2
+MariaDB [tokoku]> INSERT INTO produk (nama_produk, deskripsi, harga, stok) VALUES ('Buku Mysql', 'Buku Belajar MYSQL', 100000, 20);
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [tokoku]> SELECT * FROM produk;
++----+-------------+----------------------------+---------+------+
+| id | nama_produk | deskripsi                  | harga   | stok |
++----+-------------+----------------------------+---------+------+
+|  1 | Laptop A    | Personal komputer portable | 5000000 |   10 |
+|  2 | Laptop B    | Personal komputer portable | 4000000 |   10 |
+|  3 | Buku Mysql  | Buku Belajar MYSQL         |  100000 |   20 |
++----+-------------+----------------------------+---------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> SELECT nama_produk, harga FROM produk;
++-------------+---------+
+| nama_produk | harga   |
++-------------+---------+
+| Laptop A    | 5000000 |
+| Laptop B    | 4000000 |
+| Buku Mysql  |  100000 |
++-------------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> UPDATE produk
+    -> SET nama_produk = 'Buku Mysql 01'
+    -> WHERE id = 3;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [tokoku]> SELECT * FROM produk;
++----+---------------+----------------------------+---------+------+
+| id | nama_produk   | deskripsi                  | harga   | stok |
++----+---------------+----------------------------+---------+------+
+|  1 | Laptop A      | Personal komputer portable | 5000000 |   10 |
+|  2 | Laptop B      | Personal komputer portable | 4000000 |   10 |
+|  3 | Buku Mysql 01 | Buku Belajar MYSQL         |  100000 |   20 |
++----+---------------+----------------------------+---------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> UPDATE produk
+    -> SET stok = 9
+    -> WHERE id = 1;
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [tokoku]> SELECT * FROM produk;
++----+---------------+----------------------------+---------+------+
+| id | nama_produk   | deskripsi                  | harga   | stok |
++----+---------------+----------------------------+---------+------+
+|  1 | Laptop A      | Personal komputer portable | 5000000 |    9 |
+|  2 | Laptop B      | Personal komputer portable | 4000000 |   10 |
+|  3 | Buku Mysql 01 | Buku Belajar MYSQL         |  100000 |   20 |
++----+---------------+----------------------------+---------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [tokoku]> DELETE * FROM produk WHERE id=2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '* FROM produk WHERE id=2' at line 1
+MariaDB [tokoku]> DELETE FROM produk WHERE id=2;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [tokoku]> SELECT * FROM produk;
++----+---------------+----------------------------+---------+------+
+| id | nama_produk   | deskripsi                  | harga   | stok |
++----+---------------+----------------------------+---------+------+
+|  1 | Laptop A      | Personal komputer portable | 5000000 |    9 |
+|  3 | Buku Mysql 01 | Buku Belajar MYSQL         |  100000 |   20 |
++----+---------------+----------------------------+---------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [tokoku]>
